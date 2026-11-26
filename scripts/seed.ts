@@ -9,6 +9,11 @@ import { POLICY_PAGES } from "../src/data/policies";
 import { DEFAULT_SETTINGS } from "../src/lib/settings";
 import { UAE_EMIRATES } from "../src/lib/countries";
 import type { DeliveryZone } from "../src/db/schema";
+if (!process.env.DATABASE_URL) {
+  console.error("\n✗ DATABASE_URL is not set. Connect a PostgreSQL database (Vercel → Storage → Neon → connect to this project), then redeploy.\n");
+  process.exit(1);
+}
+
 
 const aed = (n: number) => Math.round(n * 100);
 

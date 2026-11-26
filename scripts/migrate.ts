@@ -2,6 +2,11 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { Pool } from "pg";
+if (!process.env.DATABASE_URL) {
+  console.error("\n✗ DATABASE_URL is not set. Connect a PostgreSQL database (Vercel → Storage → Neon → connect to this project), then redeploy.\n");
+  process.exit(1);
+}
+
 
 async function main() {
   const pool = new Pool({ connectionString: process.env.DATABASE_URL });

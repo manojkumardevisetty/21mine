@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" role="img" aria-label="21mine">
+  <g fill="none" stroke="#B07A7A" stroke-width="2" stroke-linejoin="round" transform="translate(2 6)">
+    <path d="M6 18 L13 9 H29 L36 18 L21 46 Z"/>
+    <path d="M6 18 H36 M13 9 L17 18 L21 46 L25 18 L29 9"/>
+  </g>
+  <text x="50" y="45" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-size="44" fill="#2B2B2B" letter-spacing="1">21<tspan fill="#B07A7A" font-style="italic">mine</tspan></text>
+</svg>

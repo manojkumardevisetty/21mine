@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { randomBytes } from "node:crypto";
+import { put } from "@vercel/blob";
 import { auth } from "@/auth";
 import { audit } from "@/lib/audit";
 import { ALLOWED, MAX_UPLOAD, UPLOAD_DIR } from "@/lib/uploads";
@@ -17,9 +18,23 @@ export async function POST(req: Request) {
   const kind = ALLOWED[file.type];
   const buf = Buffer.from(await file.arrayBuffer());
   if (!kind || !kind.magic(buf)) return Response.json({ error: "Only JPG, PNG or WebP images are allowed." }, { status: 415 });
-  await mkdir(UPLOAD_DIR, { recursive: true });
   const name = `${Date.now()}-${randomBytes(6).toString("hex")}.${kind.ext}`;
-  await writeFile(join(UPLOAD_DIR, name), buf);
-  await audit({ id: s.user.id, email: s.user.email }, "upload", "media", name, { size: file.size, type: file.type });
-  return Response.json({ url: `/media/${name}` });
+  let url: string;
+  try {
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      // Vercel / serverless: store in Vercel Blob (persistent, CDN-served)
+      const blob = await put(`products/${name}`, buf, { access: "public", contentType: file.type, addRandomSuffix: false });
+      url = blob.url;
+    } else {
+      // VPS: store on the persistent disk, served by /media/[name]
+      await mkdir(UPLOAD_DIR, { recursive: true });
+      await writeFile(join(UPLOAD_DIR, name), buf);
+      url = `/media/${name}`;
+    }
+  } catch (e) {
+    console.error("[upload]", e);
+    return Response.json({ error: "Upload failed. Please try again." }, { status: 500 });
+  }
+  await audit({ id: s.user.id, email: s.user.email }, "upload", "media", name, { size: file.size, type: file.type, url });
+  return Response.json({ url });
 }

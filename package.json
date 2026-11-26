@@ -12,12 +12,14 @@
     "db:seed": "tsx --env-file-if-exists=.env scripts/seed.ts",
     "db:reset": "tsx --env-file-if-exists=.env scripts/reset.ts",
     "test": "vitest run",
-    "e2e": "tsx --env-file-if-exists=.env scripts/e2e.ts"
+    "e2e": "tsx --env-file-if-exists=.env scripts/e2e.ts",
+    "vercel-build": "npm run db:migrate && npm run db:seed && next build"
   },
   "dependencies": {
     "@fontsource/cormorant-garamond": "^5.3.0",
     "@fontsource/inter": "^5.3.0",
     "@fontsource/noto-naskh-arabic": "^5.3.0",
+    "@vercel/blob": "^2.9.0",
     "bcryptjs": "^3.0.3",
     "drizzle-orm": "^0.45.4",
     "next": "^15.5.29",
@@ -44,5 +46,8 @@
     "tsx": "^4.23.15",
     "typescript": "5.9",
     "vitest": "^5.1.2"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

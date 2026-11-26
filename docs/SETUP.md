@@ -8,6 +8,13 @@
 
 Recommended host: a VPS (Node + PostgreSQL + Nginx). Serverless hosts (e.g. Vercel) work for the app itself, but their disk is temporary — uploads must then go to object storage (replace `src/app/api/admin/upload` + `src/app/media` with an S3/R2 driver) or use image URLs.
 
+## 1b. Deploying on Vercel (current setup)
+- Framework: Next.js · Node 22 · Build command `npm run vercel-build` (runs migrations + idempotent seed, then `next build`).
+- Database: Neon (Vercel → Storage → Neon) — provides `DATABASE_URL` automatically.
+- Photo uploads: Vercel Blob (`BLOB_READ_WRITE_TOKEN`); without it uploads go to `UPLOAD_DIR` on disk (VPS only).
+- Cron: `vercel.json` calls `/api/cron/expire-orders` daily (Vercel sends `CRON_SECRET`). Unpaid orders are also expired whenever someone checks out or opens the admin dashboard.
+- Domain: add `21mine.shop` under Project → Domains. Vercel Authentication protects `*.vercel.app` URLs; the custom domain is public.
+
 ## 2. Environment
 Copy `.env.example` to `.env` (or set variables in your host). **Never commit `.env`.** Keep separate values for demo/staging and production.
 

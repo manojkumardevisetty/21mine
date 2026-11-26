@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { requireStaff } from "@/lib/authz";
 import { Logo } from "@/components/Logo";
 import { logoutAction } from "@/app/actions/account";
-import { isDemo } from "@/lib/env";
 
 export const metadata: Metadata = { title: { default: "Admin", template: "%s | 21mine Admin" }, robots: { index: false } };
 export const dynamic = "force-dynamic";
@@ -32,7 +31,6 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         </div>
       </aside>
       <div className="min-w-0">
-        {isDemo() && <div className="bg-rose-deep px-4 py-1.5 text-center text-xs text-white">Demo mode - simulated payments. Set STORE_MODE=production and connect a gateway before launch.</div>}
         <div className="p-4 sm:p-8">{children}</div>
       </div>
     </div>

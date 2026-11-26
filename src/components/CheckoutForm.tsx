@@ -96,8 +96,8 @@ export function CheckoutForm(p: Props) {
         <section aria-labelledby="p-h" className="space-y-4">
           <h2 id="p-h" className="font-display text-2xl">3. Payment</h2>
           {p.simulated && (
-            <Alert kind="warn" title="Simulated payment - no money will be collected">
-              This store is in demo mode. On the next step you choose the outcome (success, decline or cancel). We never ask for card numbers, CVV or wallet passwords.
+            <Alert kind="info" title="Test payments">
+              Card payments are in test mode: no money is collected and no card details are requested.
             </Alert>
           )}
           {p.methods.length === 0 ? (

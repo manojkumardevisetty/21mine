@@ -4,15 +4,15 @@ import { randomToken } from "../tokens";
 // Demo-only provider. Never collects or asks for card numbers, CVV or wallet credentials.
 export const simulatedProvider: PaymentProvider = {
   id: "simulated",
-  label: "Simulated payment (demo - no money is collected)",
+  label: "Test payment (no money collected)",
   simulated: true,
   supportedCurrencies: "all",
   methods() {
     return [
-      { id: "credit_card", label: "Credit card (simulated)", description: "No card details are requested." },
-      { id: "debit_card", label: "Debit card (simulated)", description: "No card details are requested." },
-      { id: "apple_pay", label: "Apple Pay (simulated)", description: "No wallet sign-in is requested." },
-      { id: "google_pay", label: "Google Pay (simulated)", description: "No wallet sign-in is requested." },
+      { id: "credit_card", label: "Credit card", description: "Test mode" },
+      { id: "debit_card", label: "Debit card", description: "Test mode" },
+      { id: "apple_pay", label: "Apple Pay", description: "Test mode" },
+      { id: "google_pay", label: "Google Pay", description: "Test mode" },
     ];
   },
   async createPayment(input) {

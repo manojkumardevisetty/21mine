@@ -31,7 +31,7 @@ function wrap(text: string, font: PDFFont, size: number, max: number): string[] 
 export async function renderInvoicePdf(order: Order): Promise<Uint8Array> {
   const pdf = await PDFDocument.create();
   const m = order.merchantSnapshot;
-  const docTitle = order.isDemo ? "SAMPLE INVOICE" : m.taxInvoice ? "TAX INVOICE" : "INVOICE";
+  const docTitle = m.taxInvoice ? "TAX INVOICE" : "INVOICE";
   pdf.setTitle(`${docTitle} ${order.invoiceNumber ?? order.number}`);
   pdf.setAuthor(m.legalName ?? m.brandName);
   pdf.setCreator("21mine");
@@ -48,13 +48,6 @@ export async function renderInvoicePdf(order: Order): Promise<Uint8Array> {
     const xx = o.right ? x - font.widthOfTextAtSize(str, size) : x;
     page.drawText(str, { x: xx, y: yy, size, font, color: o.color ?? CHAR });
   };
-
-  // Demo watermark banner
-  if (order.isDemo) {
-    page.drawRectangle({ x: 0, y: H - 26, width: W, height: 26, color: rgb(0.97, 0.9, 0.9) });
-    text("Sample invoice - no payment collected (demo / simulated payment)", W / 2 - 150, H - 17, { size: 9, font: bold, color: rgb(0.55, 0.25, 0.25) });
-    y -= 6;
-  }
 
   // Brand mark
   text("21", L, y - 6, { size: 30, font: serif });
@@ -78,7 +71,7 @@ export async function renderInvoicePdf(order: Order): Promise<Uint8Array> {
     ["Order reference", order.number],
     ["Order date", order.createdAt.toISOString().slice(0, 10)],
     ["Payment status", PAYMENT_STATUS_LABEL[order.paymentStatus] ?? order.paymentStatus],
-    ["Payment method", order.paymentMethod.replace("_", " ") + (order.isDemo ? " (simulated)" : "")],
+    ["Payment method", order.paymentMethod.replace("_", " ")],
     ["Currency", order.currency],
   ];
   meta.forEach(([k, v], i) => {
@@ -147,7 +140,7 @@ export async function renderInvoicePdf(order: Order): Promise<Uint8Array> {
   const notes: string[] = [];
   if (order.currency !== "AED") notes.push(`Prices converted from AED at 1 AED = ${(order.fxRateMicros / 1e6).toFixed(6)} ${order.currency} at the time of purchase.`);
   if (order.taxRateBps === 0) notes.push("No VAT has been charged on this invoice.");
-  if (order.isDemo) notes.push("This document was generated in demo mode. It is not a request for payment and no payment was collected.");
+  if (order.isDemo) notes.push("Test transaction: no payment was collected for this order.");
   notes.push(`Thank you for shopping with ${m.brandName}. For help with this order contact ${m.supportEmail ?? "our support team"}.`);
   for (const n of notes) {
     for (const l of wrap(n, regular, 8.5, R - L)) { text(l, L, y, { size: 8.5, color: MUTED }); y -= 11; }

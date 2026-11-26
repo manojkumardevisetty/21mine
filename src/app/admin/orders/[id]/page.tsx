@@ -27,7 +27,7 @@ export default async function AdminOrder({ params }: { params: Promise<{ id: str
       <Link href="/admin/orders" className="text-sm text-muted hover:underline">← Orders</Link>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div><h1 className="h-display text-4xl">{o.number}</h1><p className="text-sm text-muted">{o.createdAt.toLocaleString("en-GB", { timeZone: "Asia/Dubai" })} GST · {o.user ? <>Customer: {o.user.name}</> : "Guest checkout"} · {o.email}</p></div>
-        <div className="flex flex-wrap gap-2"><OrderBadge s={o.status} /><PaymentBadge s={o.paymentStatus} />{o.isDemo && <span className="chip bg-rose-soft text-rose-deep">Demo / simulated</span>}</div>
+        <div className="flex flex-wrap gap-2"><OrderBadge s={o.status} /><PaymentBadge s={o.paymentStatus} />{o.isDemo && <span className="chip bg-rose-soft text-rose-deep">Test payment</span>}</div>
       </div>
       <div className="grid gap-6 xl:grid-cols-[1fr_380px]">
         <div className="space-y-6">

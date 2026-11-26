@@ -39,7 +39,7 @@ export default async function OrderPage({ params, searchParams }: { params: Prom
         <div className="mb-8 rounded-3xl bg-cream p-8 text-center">
           <p className="text-4xl" aria-hidden="true">✓</p>
           <h1 className="h-display mt-2 text-4xl">Thank you - your order is confirmed</h1>
-          <p className="mt-2 text-muted">We've emailed a confirmation to <strong>{o.email}</strong>.{o.isDemo && " This was a simulated payment - no money was collected."}</p>
+          <p className="mt-2 text-muted">We've emailed a confirmation to <strong>{o.email}</strong>.{o.isDemo && " (Test payment - no money was collected.)"}</p>
         </div>
       )}
       {fresh && o.paymentStatus === "FAILED" && <div className="mb-6"><Alert kind="error" title="Your payment was declined">No money was taken. Your items are reserved for 60 minutes - you can try again below.</Alert></div>}
@@ -52,12 +52,12 @@ export default async function OrderPage({ params, searchParams }: { params: Prom
           <h2 className="h-display text-3xl">{o.number}</h2>
           <p className="text-sm text-muted">Placed {o.createdAt.toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Dubai" })} (GST)</p>
         </div>
-        <div className="flex flex-wrap gap-2"><OrderBadge s={o.status} /><PaymentBadge s={o.paymentStatus} />{o.isDemo && <span className="chip bg-rose-soft text-rose-deep">Demo order</span>}</div>
+        <div className="flex flex-wrap gap-2"><OrderBadge s={o.status} /><PaymentBadge s={o.paymentStatus} /></div>
       </div>
 
       <div className="mt-6 flex flex-wrap gap-3">
         {invoiceEligible(o) ? (
-          <a href={`/api/invoices/${o.id}?t=${encodeURIComponent(token)}`} className="btn-primary" download>Download {o.isDemo ? "sample " : ""}invoice (PDF)</a>
+          <a href={`/api/invoices/${o.id}?t=${encodeURIComponent(token)}`} className="btn-primary" download>Download invoice (PDF)</a>
         ) : (
           <p className="text-sm text-muted">The invoice will be available once payment is confirmed.</p>
         )}

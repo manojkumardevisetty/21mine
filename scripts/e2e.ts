@@ -101,7 +101,7 @@ async function placeOrder(p: Page, opts: { doubleClick?: boolean } = {}) {
   else await btn.click();
   await waitPath(p, "/pay/simulated/");
 }
-async function simulate(p: Page, label: "Simulate successful payment" | "Simulate declined payment" | "Cancel payment") {
+async function simulate(p: Page, label: "Pay now" | "Simulate declined payment" | "Cancel payment") {
   await clickText(p, "button", label);
   await waitPath(p, "/orders/");
   await idle(p);
@@ -212,9 +212,9 @@ async function main() {
     const after = (await db.query("select count(*)::int n from orders o join users u on u.id=o.user_id where u.email=$1", [A.email])).rows[0].n;
     assert(after === before + 1, `double submit created ${after - before} orders`);
     const t = await text(p);
-    assert(t.includes("SIMULATED PAYMENT") && t.includes("No payment will be collected") && !/card number|cvv/i.test(t.replace("no card or wallet details", "")), "simulated labels, no card inputs");
+    assert(t.includes("TEST PAYMENT") && t.includes("no money will be collected"), "test-payment notice on payment step");
     assert((await p.$$('input[type="password"], input[autocomplete="cc-number"]')).length === 0, "no card fields");
-    await simulate(p, "Simulate successful payment");
+    await simulate(p, "Pay now");
     await waitText(p, "your order is confirmed");
     orderNumberA = decodeURIComponent(path(p).split("/").pop()!);
     const r = await db.query("select id, total_minor, invoice_number from orders where number=$1", [orderNumberA]);
@@ -227,9 +227,9 @@ async function main() {
     const res = await fetchWithCookies(p, invoiceUrlA);
     assert(res.status === 200 && res.type === "application/pdf", `invoice status ${res.status}`);
     const t = pdfText(res.bytes);
-    for (const s of ["SAMPLE INVOICE", "Sample invoice - no payment collected", "XENTERPRISES DIGITAL SERVICES - FZCO", "Trade licence 18250", orderNumberA, "AED 448.00", "Rose Oud Noir Eau de Parfum", "Paid"])
+    for (const s of ["INVOICE", "Test transaction: no payment was collected", "XENTERPRISES DIGITAL SERVICES - FZCO", "Trade licence 18250", orderNumberA, "AED 448.00", "Rose Oud Noir Eau de Parfum", "Paid"])
       assert(t.includes(s), `invoice missing "${s}"`);
-    assert(!t.includes("TAX INVOICE") && !t.includes("TRN"), "no tax wording without confirmed VAT");
+    assert(!t.includes("TAX INVOICE") && !t.includes("TRN") && !/sample|demo/i.test(t), "no tax/demo wording");
   });
 
   await step("Order history and confirmation email", async () => {
@@ -250,7 +250,7 @@ async function main() {
     assert((await db.query("select stock from variants where sku='PN-MILKPRL-S'")).rows[0].stock === before - 1, "stock reserved after decline");
     await clickText(p, "button", "Try payment again");
     await waitPath(p, "/pay/simulated/");
-    await simulate(p, "Simulate successful payment");
+    await simulate(p, "Pay now");
     await waitText(p, "your order is confirmed");
   });
 
@@ -309,7 +309,7 @@ async function main() {
     await pg.click("#f-city");
     await pg.waitForFunction(() => /\$25\.87/.test(document.body.innerText), { timeout: 15000 }); // AED 95 delivery
     await placeOrder(pg);
-    await simulate(pg, "Simulate successful payment");
+    await simulate(pg, "Pay now");
     await waitText(pg, "your order is confirmed");
     guestUrl = pg.url();
     const t = await text(pg);

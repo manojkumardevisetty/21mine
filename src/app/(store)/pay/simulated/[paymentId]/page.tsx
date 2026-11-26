@@ -26,16 +26,16 @@ export default async function SimulatedPay({ params, searchParams }: { params: P
   return (
     <div className="container-x max-w-xl py-12">
       <div className="rounded-2xl border-2 border-dashed border-rose bg-white p-6 sm:p-8">
-        <p className="chip bg-rose-deep px-3 py-1 text-white">SIMULATED PAYMENT · DEMO</p>
-        <h1 className="h-display mt-4 text-3xl">Simulated {METHOD[p.method] ?? "payment"}</h1>
-        <p className="mt-2 text-sm text-muted">This page stands in for the payment gateway. <strong>No payment will be collected</strong> and no card or wallet details are requested. Choose an outcome to test the order flow.</p>
+        <p className="chip bg-cream px-3 py-1 text-charcoal">TEST PAYMENT</p>
+        <h1 className="h-display mt-4 text-3xl">{METHOD[p.method] ?? "Payment"}</h1>
+        <p className="mt-2 text-sm text-muted">Test mode: <strong>no money will be collected</strong> and no card details are requested.</p>
         <dl className="mt-6 space-y-2 rounded-xl bg-cream p-4 text-sm">
           <div className="flex justify-between"><dt>Order</dt><dd className="font-medium">{o.number}</dd></div>
           <div className="flex justify-between"><dt>Items</dt><dd>{o.items.reduce((a, i) => a + i.quantity, 0)}</dd></div>
           <div className="flex justify-between text-base"><dt>Amount</dt><dd className="font-semibold">{m(p.amountMinor)}</dd></div>
         </dl>
         <div className="mt-6 grid gap-3">
-          {([["succeeded", "Simulate successful payment", "btn-primary w-full"], ["failed", "Simulate declined payment", "btn-secondary w-full"], ["cancelled", "Cancel payment", "btn-ghost w-full text-danger"]] as const).map(([outcome, label, cls]) => (
+          {([["succeeded", "Pay now", "btn-primary w-full"], ["failed", "Simulate declined payment", "btn-secondary w-full"], ["cancelled", "Cancel payment", "btn-ghost w-full text-danger"]] as const).map(([outcome, label, cls]) => (
             <form key={outcome} action={simulatePaymentAction}>
               <input type="hidden" name="paymentId" value={p.id} />
               <input type="hidden" name="t" value={t ?? ""} />

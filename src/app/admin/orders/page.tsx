@@ -46,7 +46,7 @@ export default async function Orders({ searchParams }: { searchParams: Promise<R
           <tbody>
             {rows.map((r) => (
               <tr key={r.id} className="border-t border-sand align-top">
-                <td className="p-3"><Link href={`/admin/orders/${r.id}`} className="link font-medium">{r.number}</Link>{r.isDemo && <span className="chip ms-1 bg-rose-soft text-rose-deep">demo</span>}{r.invoiceNumber && <div className="text-xs text-muted">{r.invoiceNumber}</div>}</td>
+                <td className="p-3"><Link href={`/admin/orders/${r.id}`} className="link font-medium">{r.number}</Link>{r.isDemo && <span className="chip ms-1 bg-rose-soft text-rose-deep">test</span>}{r.invoiceNumber && <div className="text-xs text-muted">{r.invoiceNumber}</div>}</td>
                 <td className="p-3">{r.shipName}<div className="text-xs text-muted">{r.email}{r.userId ? "" : " · guest"}</div></td>
                 <td className="p-3 text-xs">{r.shipCity}, {r.shipRegion}, {r.shipCountry}</td>
                 <td className="p-3">{formatMinor(r.totalMinor, r.currency, r.currencyExponent)}</td>

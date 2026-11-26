@@ -24,7 +24,7 @@ export async function simulatePaymentAction(fd: FormData) {
     providerRef: p.providerRef, providerEventId: `${p.providerRef}:${outcome}`,
     type: outcome as "succeeded" | "failed" | "cancelled", amountMinor: p.amountMinor, currency: p.currency,
     payload: { simulated: true, outcome },
-  }, "customer (simulated)");
+  }, "customer");
   redirect(`/orders/${p.order.number}?t=${createOrderToken(p.orderId)}&from=payment`);
 }
 

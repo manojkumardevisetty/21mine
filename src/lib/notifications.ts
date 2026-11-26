@@ -18,7 +18,7 @@ export async function notifyOrder(orderId: string, kind: OrderNotice) {
   if (!o) return;
   const money = (m: number) => formatPlain(m, o.currency, o.currencyExponent);
   const link = orderLink(o.id, o.number);
-  const demo = o.isDemo ? "\n\nNOTE: This order was placed in demo mode. No payment was collected." : "";
+  const demo = o.isDemo ? "\n\nTest payment: no money was collected." : "";
   const lines = o.items.map((i) => `- ${i.productName} (${i.variantName}) x${i.quantity}: ${money(i.lineTotalMinor)}`).join("\n");
 
   const copy: Record<OrderNotice, { subject: string; intro: string }> = {
@@ -46,7 +46,7 @@ Questions? Reply to this email or write to support@21mine.shop.`;
     `<tr><td style="padding:6px 0;border-bottom:1px solid #eee">${esc(i.productName)} <span style="color:#777">(${esc(i.variantName)}) × ${i.quantity}</span></td><td style="text-align:right;border-bottom:1px solid #eee">${money(i.lineTotalMinor)}</td></tr>`).join("")}
 <tr><td style="padding-top:10px"><strong>Total</strong></td><td style="text-align:right;padding-top:10px"><strong>${money(o.totalMinor)}</strong></td></tr></table>
 <p><a href="${link}" style="display:inline-block;margin-top:20px;background:#2B2B2B;color:#fff;padding:12px 20px;text-decoration:none;border-radius:999px">View order</a></p>
-${o.isDemo ? `<p style="color:#9a5b5b;font-size:13px">Demo mode: no payment was collected.</p>` : ""}`);
+${o.isDemo ? `<p style="color:#9a5b5b;font-size:12px">Test payment: no money was collected.</p>` : ""}`);
   await sendMail({ to: o.email, subject: c.subject, text, html, replyTo: "support@21mine.shop" });
 
   if (kind === "paid") {

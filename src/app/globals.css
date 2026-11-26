@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@import "@fontsource/cormorant-garamond/400.css";
+@import "@fontsource/cormorant-garamond/500.css";
+@import "@fontsource/cormorant-garamond/400-italic.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/noto-naskh-arabic/400.css";
+@import "@fontsource/noto-naskh-arabic/600.css";
+
+@theme {
+  --color-ivory: #FAF6F0;
+  --color-cream: #F3ECE3;
+  --color-sand: #E7DED3;
+  --color-charcoal: #2B2B2B;
+  --color-ink: #1F1F1F;
+  --color-muted: #6B6560;
+  --color-rose: #B07A7A;
+  --color-rose-soft: #E7C9C3;
+  --color-rose-deep: #8E5A5A;
+  --color-gold: #C9A46A;
+  --color-ok: #3F6B4F;
+  --color-warn: #8A5A12;
+  --color-danger: #A23B3B;
+  --font-sans: "Inter", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", "Noto Naskh Arabic", Georgia, serif;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+body { @apply bg-ivory text-charcoal font-sans antialiased; }
+html[dir="rtl"] body { font-family: "Noto Naskh Arabic", "Inter", system-ui, sans-serif; }
+
+:focus-visible { outline: 2px solid var(--color-rose-deep); outline-offset: 2px; border-radius: 4px; }
+
+@utility container-x { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+@utility h-display { @apply font-display font-normal tracking-tight; }
+@utility btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50; }
+@utility btn-primary { @apply btn bg-charcoal text-ivory hover:bg-ink; }
+@utility btn-secondary { @apply btn border border-charcoal/80 bg-transparent text-charcoal hover:bg-charcoal hover:text-ivory; }
+@utility btn-rose { @apply btn bg-rose text-white hover:bg-rose-deep; }
+@utility btn-ghost { @apply btn px-3 py-2 hover:bg-cream; }
+@utility btn-danger { @apply btn bg-danger text-white hover:opacity-90; }
+@utility btn-sm { @apply px-4 py-2 text-xs; }
+@utility card { @apply rounded-2xl border border-sand bg-white/70; }
+@utility label { @apply mb-1.5 block text-sm font-medium text-charcoal; }
+@utility input { @apply block w-full rounded-xl border border-sand bg-white px-4 py-3 text-base text-charcoal placeholder:text-muted/70 focus:border-rose-deep focus:outline-none focus:ring-2 focus:ring-rose-soft sm:text-sm; }
+.input[aria-invalid="true"] { @apply border-danger ring-1 ring-danger/30; }
+@utility field-error { @apply mt-1.5 text-sm text-danger; }
+@utility hint { @apply mt-1.5 text-xs text-muted; }
+@utility chip { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium; }
+@utility link { @apply underline decoration-rose/60 underline-offset-4 hover:decoration-rose-deep; }
+.prose-policy h2  { @apply font-display text-2xl mt-8 mb-3; }
+.prose-policy h3  { @apply font-semibold mt-6 mb-2; }
+.prose-policy p  { @apply my-3 leading-7; }
+.prose-policy ul, .prose-policy ol  { @apply my-3 ps-6 space-y-1.5; }
+.prose-policy ul  { @apply list-disc; }
+.prose-policy ol  { @apply list-decimal; }
+.prose-policy a  { @apply link; }
+.prose-policy table  { @apply my-4 w-full text-sm border-collapse; }
+.prose-policy th, .prose-policy td  { @apply border border-sand p-2 text-start align-top; }
+.prose-policy th  { @apply bg-cream font-medium; }
+
+.skip-link { position: absolute; inset-inline-start: 1rem; top: -4rem; z-index: 100; }
+.skip-link:focus { top: 1rem; }

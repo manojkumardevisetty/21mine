@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+<defs><linearGradient id="bg349" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b6664"/><stop offset="1" stop-color="#393330"/></linearGradient>
+<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14"/></filter><linearGradient id="jg347" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a8a8a"/><stop offset=".5" stop-color="#2B2B2B"/><stop offset="1" stop-color="#1c1c1c"/></linearGradient>
+<radialGradient id="pearl348" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#8C6E64"/><stop offset="1" stop-color="#705850"/></radialGradient></defs>
+<rect width="800" height="1000" fill="url(#bg349)"/><circle cx="640" cy="200" r="150" fill="#7e7a78" opacity=".8"/>
+       <circle cx="140" cy="860" r="190" fill="#36302d"/>
+       <path d="M0 720 Q 400 640 800 760 V1000 H0Z" fill="#37312f"/><g transform="translate(400 520) scale(1.12) rotate(-6) translate(-400 -520)"><path d="M150 440 Q160 400 230 400 H350 Q380 400 378 440 Q370 560 270 560 Q170 560 150 440Z" fill="#8C6E64" opacity=".85" stroke="#2B2B2B" stroke-width="18"/>
+<path d="M650 440 Q640 400 570 400 H450 Q420 400 422 440 Q430 560 530 560 Q630 560 650 440Z" fill="#8C6E64" opacity=".85" stroke="#2B2B2B" stroke-width="18"/>
+<path d="M378 430 Q400 410 422 430" fill="none" stroke="#2B2B2B" stroke-width="14"/>
+<path d="M150 430 L120 380 M650 430 L680 380" stroke="#2B2B2B" stroke-width="16" stroke-linecap="round"/>
+<path d="M190 450 Q230 420 280 430" stroke="#fff" stroke-opacity=".5" stroke-width="8" fill="none" stroke-linecap="round"/></g>
+<text x="40" y="970" font-family="Georgia, serif" font-size="22" fill="#25211f" opacity=".6">21<tspan font-style="italic">mine</tspan></text>
+</svg>

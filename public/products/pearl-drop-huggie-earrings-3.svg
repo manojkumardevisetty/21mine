@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+<defs><linearGradient id="bg277" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b6664"/><stop offset="1" stop-color="#393330"/></linearGradient>
+<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14"/></filter><linearGradient id="jg275" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e1cdad"/><stop offset=".5" stop-color="#C9A46A"/><stop offset="1" stop-color="#836b45"/></linearGradient>
+<radialGradient id="pearl276" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#F4EEE8"/><stop offset="1" stop-color="#c3beba"/></radialGradient></defs>
+<rect width="800" height="1000" fill="url(#bg277)"/><circle cx="640" cy="200" r="150" fill="#7e7a78" opacity=".8"/>
+       <circle cx="140" cy="860" r="190" fill="#36302d"/>
+       <path d="M0 720 Q 400 640 800 760 V1000 H0Z" fill="#37312f"/><g transform="translate(400 520) scale(1.12) rotate(-6) translate(-400 -520)"><circle cx="300" cy="440" r="70" fill="none" stroke="url(#jg275)" stroke-width="22"/>
+<rect x="295" y="505" width="10" height="40" fill="url(#jg275)"/><circle cx="300" cy="580" r="42" fill="url(#pearl276)"/><circle cx="500" cy="440" r="70" fill="none" stroke="url(#jg275)" stroke-width="22"/>
+<rect x="495" y="505" width="10" height="40" fill="url(#jg275)"/><circle cx="500" cy="580" r="42" fill="url(#pearl276)"/></g>
+<text x="40" y="970" font-family="Georgia, serif" font-size="22" fill="#25211f" opacity=".6">21<tspan font-style="italic">mine</tspan></text>
+</svg>

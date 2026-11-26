@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000"><defs><linearGradient id="bg340" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f1ec"/><stop offset="1" stop-color="#F3ECE6"/></linearGradient>
+<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14"/></filter><linearGradient id="jg338" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e1bfbf"/><stop offset=".5" stop-color="#C98B8B"/><stop offset="1" stop-color="#835a5a"/></linearGradient>
+<radialGradient id="pearl339" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#fff"/><stop offset=".6" stop-color="#2B2B2B"/><stop offset="1" stop-color="#222222"/></radialGradient></defs>
+<rect width="800" height="1000" fill="#FBF8F3"/>
+<g transform="translate(200 20) scale(0.5)">
+<rect width="800" height="1000" fill="url(#bg340)"/><ellipse cx="400" cy="800" rx="250" ry="34" fill="#d6d0ca" opacity=".7"/>
+       <rect x="150" y="790" width="500" height="150" rx="10" fill="#e7e0db"/>
+       <rect x="150" y="790" width="500" height="10" fill="#dbd4cf"/><g transform="rotate(12 400 520)"><rect x="200" y="320" width="400" height="400" fill="#C98B8B"/>
+<rect x="220" y="340" width="360" height="360" fill="none" stroke="#2B2B2B" stroke-width="6"/>
+<rect x="250" y="370" width="300" height="300" fill="none" stroke="#F5EEE4" stroke-width="2"/>
+<path d="M400 390 L520 520 L400 650 L280 520 Z" fill="none" stroke="#2B2B2B" stroke-width="5"/>
+<path d="M400 440 L470 520 L400 600 L330 520 Z" fill="#F5EEE4" opacity=".8"/>
+<text x="400" y="530" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#2B2B2B">21</text></g>
+<text x="40" y="970" font-family="Georgia, serif" font-size="22" fill="#9e9996" opacity=".6">21<tspan font-style="italic">mine</tspan></text>
+</g>
+<line x1="90" x2="710" y1="585" y2="585" stroke="#E7DED3" stroke-width="2"/><text x="90" y="640" font-family="Helvetica, Arial, sans-serif" font-size="17" letter-spacing="1.5" fill="#8b8079">MATERIAL</text>
+<text x="90" y="666" font-family="Georgia, serif" font-size="24" fill="#2B2B2B">100% polyester satin twill (silk-touch)</text><text x="90" y="702" font-family="Helvetica, Arial, sans-serif" font-size="17" letter-spacing="1.5" fill="#8b8079">SIZE</text>
+<text x="90" y="728" font-family="Georgia, serif" font-size="24" fill="#2B2B2B">70 x 70 cm</text><text x="90" y="764" font-family="Helvetica, Arial, sans-serif" font-size="17" letter-spacing="1.5" fill="#8b8079">EDGES</text>
+<text x="90" y="790" font-family="Georgia, serif" font-size="24" fill="#2B2B2B">Rolled hem</text>
+<text x="40" y="970" font-family="Georgia, serif" font-size="22" fill="#B07A7A" opacity=".8">21<tspan font-style="italic">mine</tspan></text></svg>

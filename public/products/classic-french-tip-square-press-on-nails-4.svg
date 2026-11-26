@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000"><defs><linearGradient id="bg164" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7f3ef"/><stop offset="1" stop-color="#F4EFEA"/></linearGradient>
+<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="14"/></filter><linearGradient id="nf161" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d5bab7"/><stop offset=".5" stop-color="#F2D3D0"/><stop offset="1" stop-color="#ceb3b1"/></linearGradient><linearGradient id="ns162" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".3" stop-color="#fff" stop-opacity=".75"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<clipPath id="nc163"><path d="M0 150 V8 Q0 0 8 0 H70 Q78 0 78 8 V150 Z"/></clipPath></defs>
+<rect width="800" height="1000" fill="#FBF8F3"/>
+<g transform="translate(200 20) scale(0.5)">
+<rect width="800" height="1000" fill="url(#bg164)"/><ellipse cx="400" cy="800" rx="250" ry="34" fill="#d7d2ce" opacity=".7"/>
+       <rect x="150" y="790" width="500" height="150" rx="10" fill="#e8e3de"/>
+       <rect x="150" y="790" width="500" height="10" fill="#dcd7d3"/><ellipse cx="400" cy="770" rx="210" ry="22" fill="#000" opacity=".06" filter="url(#soft)"/><g transform="translate(400 780) scale(1.55)"><g transform="rotate(-28) translate(-39 -200)"><g transform="scale(1)"><path d="M0 150 V8 Q0 0 8 0 H70 Q78 0 78 8 V150 Z" fill="url(#nf161)"/><path d="M-5 45 Q 39 63 83 45 V-5 H-5Z" fill="#FFFFFF" clip-path="url(#nc163)"/>
+<rect x="11.7" y="10" width="46.8" height="130" fill="url(#ns162)" clip-path="url(#nc163)" opacity=".8"/>
+<path d="M0 150 V8 Q0 0 8 0 H70 Q78 0 78 8 V150 Z" fill="none" stroke="#a99492" stroke-opacity=".35" stroke-width="2"/></g></g><g transform="rotate(-14) translate(-39 -210)"><g transform="scale(1)"><path d="M0 150 V8 Q0 0 8 0 H70 Q78 0 78 8 V150 Z" fill="url(#nf161)"/><path d="M-5 45 Q 39 63 83 45 V-5 H-5Z" fill="#FFFFFF" clip-path="url(#nc163)"/>
+<rect x="11.7" y="10" width="46.8" height="130" fill="url(#ns162)" clip-path="url(#nc163)" opacity=".8"/>
+<path d="M0 150 V8 Q0 0 8 0 H70 Q78 0 78 8 V150 Z" fill="none" stroke="#a99492" stroke-opacity=".35" stroke-width="2"/></g></g><g transform="rotate(0) translate(-39 -220)"><g transform="scale(1)"><path d="M0 150 V8 Q0 0 8 0 H70 Q78 0 78 8 V150 Z" fill="url(#nf161)"/><path d="M-5 45 Q 39 63 83 45 V-5 H-5Z" fill="#FFFFFF" clip-path="url(#nc163)"/>
+<rect x="11.7" y="10" width="46.8" height="130" fill="url(#ns162)" clip-path="url(#nc163)" opacity=".8"/>
+<path d="M0 150 V8 Q0 0 8 0 H70 Q78 0 78 8 V150 Z" fill="none" stroke="#a99492" stroke-opacity=".35" stroke-width="2"/></g></g><g transform="rotate(14) translate(-39 -210)"><g transform="scale(1)"><path d="M0 150 V8 Q0 0 8 0 H70 Q78 0 78 8 V150 Z" fill="url(#nf161)"/><path d="M-5 45 Q 39 63 83 45 V-5 H-5Z" fill="#FFFFFF" clip-path="url(#nc163)"/>
+<rect x="11.7" y="10" width="46.8" height="130" fill="url(#ns162)" clip-path="url(#nc163)" opacity=".8"/>
+<path d="M0 150 V8 Q0 0 8 0 H70 Q78 0 78 8 V150 Z" fill="none" stroke="#a99492" stroke-opacity=".35" stroke-width="2"/></g></g><g transform="rotate(28) translate(-39 -200)"><g transform="scale(1)"><path d="M0 150 V8 Q0 0 8 0 H70 Q78 0 78 8 V150 Z" fill="url(#nf161)"/><path d="M-5 45 Q 39 63 83 45 V-5 H-5Z" fill="#FFFFFF" clip-path="url(#nc163)"/>
+<rect x="11.7" y="10" width="46.8" height="130" fill="url(#ns162)" clip-path="url(#nc163)" opacity=".8"/>
+<path d="M0 150 V8 Q0 0 8 0 H70 Q78 0 78 8 V150 Z" fill="none" stroke="#a99492" stroke-opacity=".35" stroke-width="2"/></g></g></g>
+<text x="40" y="970" font-family="Georgia, serif" font-size="22" fill="#9f9b98" opacity=".6">21<tspan font-style="italic">mine</tspan></text>
+</g>
+<line x1="90" x2="710" y1="585" y2="585" stroke="#E7DED3" stroke-width="2"/><text x="90" y="640" font-family="Helvetica, Arial, sans-serif" font-size="17" letter-spacing="1.5" fill="#8b8079">SHAPE</text>
+<text x="90" y="666" font-family="Georgia, serif" font-size="24" fill="#2B2B2B">Square</text><text x="90" y="702" font-family="Helvetica, Arial, sans-serif" font-size="17" letter-spacing="1.5" fill="#8b8079">LENGTH</text>
+<text x="90" y="728" font-family="Georgia, serif" font-size="24" fill="#2B2B2B">Short (approx. 1.5 cm)</text><text x="90" y="764" font-family="Helvetica, Arial, sans-serif" font-size="17" letter-spacing="1.5" fill="#8b8079">FINISH</text>
+<text x="90" y="790" font-family="Georgia, serif" font-size="24" fill="#2B2B2B">Gloss gel, white tip</text><text x="90" y="826" font-family="Helvetica, Arial, sans-serif" font-size="17" letter-spacing="1.5" fill="#8b8079">PIECES</text>
+<text x="90" y="852" font-family="Georgia, serif" font-size="24" fill="#2B2B2B">24 nails in 12 sizes (0-11)</text><text x="90" y="888" font-family="Helvetica, Arial, sans-serif" font-size="17" letter-spacing="1.5" fill="#8b8079">WEAR TIME</text>
+<text x="90" y="914" font-family="Georgia, serif" font-size="24" fill="#2B2B2B">Up to 2 weeks with glue, 1-3 days with adhesive tabs</text>
+<text x="40" y="970" font-family="Georgia, serif" font-size="22" fill="#B07A7A" opacity=".8">21<tspan font-style="italic">mine</tspan></text></svg>

@@ -1,55 +1,38 @@
 import Link from "next/link";
 import { getT } from "@/lib/i18n";
 import { getSettings } from "@/lib/settings";
+import { listCategories } from "@/lib/catalog";
 import { Logo } from "./Logo";
+import { PaymentPills } from "./PaymentPills";
 
 export async function Footer() {
-  const [{ t }, s] = await Promise.all([getT(), getSettings()]);
+  const [{ t, locale }, s, cats] = await Promise.all([getT(), getSettings(), listCategories()]);
+  const col = (title: string, links: [string, string][]) => (
+    <nav aria-label={title}>
+      <h2 className="mb-4 font-display text-[15px] font-semibold text-charcoal">{title}</h2>
+      <ul className="space-y-2.5 text-sm">{links.map(([href, label]) => <li key={href}><Link href={href} className="text-ink hover:text-rose">{label}</Link></li>)}</ul>
+    </nav>
+  );
   return (
-    <footer className="mt-24 bg-charcoal text-ivory/85">
-      <div className="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
-        <div>
-          <Logo light />
-          <p className="mt-4 max-w-xs text-sm text-ivory/70">{t("footer.about")}</p>
-          <p className="mt-4 text-sm"><a className="hover:text-white" href={`mailto:${s.supportEmail}`}>{s.supportEmail}</a></p>
-          {s.supportPhone && <p className="text-sm">{s.supportPhone}</p>}
+    <footer className="mt-24 border-t border-sand bg-white">
+      <div className="container-x grid grid-cols-2 gap-x-6 gap-y-10 py-14 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
+        <div className="col-span-2 lg:col-span-1">
+          <Logo />
+          <p className="mt-5 max-w-xs text-sm leading-6 text-muted">{t("footer.about")} Long-lasting eaux de parfum, salon-quality press-on nails and everyday jewellery, delivered across the UAE and worldwide.</p>
+          <p className="mt-4 text-sm"><a className="font-medium text-charcoal hover:text-rose" href={`mailto:${s.supportEmail}`}>{s.supportEmail}</a></p>
+          {s.supportPhone && <p className="text-sm text-charcoal">{s.supportPhone}</p>}
         </div>
-        <nav aria-label={t("footer.shop")}>
-          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-ivory/60">{t("footer.shop")}</h2>
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/category/perfumes" className="hover:text-white">{t("nav.perfumes")}</Link></li>
-            <li><Link href="/category/press-on-nails" className="hover:text-white">{t("nav.nails")}</Link></li>
-            <li><Link href="/category/nail-care" className="hover:text-white">{t("nav.nailcare")}</Link></li>
-            <li><Link href="/category/jewellery" className="hover:text-white">{t("nav.jewellery")}</Link></li>
-            <li><Link href="/category/hair-accessories" className="hover:text-white">Hair Accessories</Link></li>
-            <li><Link href="/category/fashion-accessories" className="hover:text-white">{t("nav.accessories")}</Link></li>
-          </ul>
-        </nav>
-        <nav aria-label={t("footer.help")}>
-          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-ivory/60">{t("footer.help")}</h2>
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/contact" className="hover:text-white">{t("nav.contact")}</Link></li>
-            <li><Link href="/policies/shipping" className="hover:text-white">{t("footer.shipping")}</Link></li>
-            <li><Link href="/policies/returns" className="hover:text-white">{t("footer.returns")}</Link></li>
-            <li><Link href="/account" className="hover:text-white">{t("nav.account")}</Link></li>
-          </ul>
-        </nav>
-        <nav aria-label={t("footer.legal")}>
-          <h2 className="mb-3 text-xs font-semibold uppercase tracking-widest text-ivory/60">{t("footer.legal")}</h2>
-          <ul className="space-y-2 text-sm">
-            <li><Link href="/policies/terms" className="hover:text-white">{t("footer.terms")}</Link></li>
-            <li><Link href="/policies/privacy" className="hover:text-white">{t("footer.privacy")}</Link></li>
-            <li><Link href="/policies/cookies" className="hover:text-white">{t("footer.cookies")}</Link></li>
-            <li><Link href="/cookie-preferences" className="hover:text-white">{t("footer.cookiePrefs")}</Link></li>
-            <li><Link href="/policies/contact" className="hover:text-white">{t("footer.contact")}</Link></li>
-          </ul>
-        </nav>
+        {col("Shop", [["/shop", "Shop all"], ["/shop?sort=newest", "New in"], ["/product/discovery-set-5-x-8-ml", "Discovery set"], ["/shop?stock=1", "Ready to ship"]])}
+        {col("Categories", cats.map((c) => [`/category/${c.slug}`, locale === "ar" && c.nameAr ? c.nameAr : c.name] as [string, string]))}
+        {col("Help", [["/account/orders", "Track my order"], ["/policies/shipping", t("footer.shipping")], ["/policies/returns", t("footer.returns")], ["/contact", t("nav.contact")]])}
+        {col("Company", [["/policies/contact", "About 21mine"], ["/policies/terms", t("footer.terms")], ["/policies/privacy", t("footer.privacy")], ["/policies/cookies", t("footer.cookies")], ["/cookie-preferences", t("footer.cookiePrefs")]])}
       </div>
-      <div className="border-t border-white/10">
-        <div className="container-x flex flex-col gap-2 py-6 text-xs text-ivory/60 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} {s.legalName ?? s.brandName}{s.tradeLicenceNumber ? ` · Trade licence ${s.tradeLicenceNumber}` : ""}{s.licenceAuthority ? ` · ${s.licenceAuthority}` : ""}</p>
-          <p>{s.businessAddress}</p>
-        </div>
+      <div className="container-x border-t border-sand py-6">
+        <PaymentPills />
+      </div>
+      <div className="container-x flex flex-col gap-2 border-t border-sand py-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+        <p>© {new Date().getFullYear()} {s.legalName ?? s.brandName}{s.tradeLicenceNumber ? ` · Licence ${s.tradeLicenceNumber}` : ""} · <Link href="/policies/terms" className="hover:underline">Terms</Link> · <Link href="/policies/privacy" className="hover:underline">Privacy</Link></p>
+        <p>{s.businessAddress}</p>
       </div>
     </footer>
   );

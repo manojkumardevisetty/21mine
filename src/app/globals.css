@@ -1,7 +1,7 @@
 @import "tailwindcss";
-@import "@fontsource/cormorant-garamond/400.css";
-@import "@fontsource/cormorant-garamond/500.css";
-@import "@fontsource/cormorant-garamond/400-italic.css";
+@import "@fontsource/montserrat/500.css";
+@import "@fontsource/montserrat/600.css";
+@import "@fontsource/montserrat/700.css";
 @import "@fontsource/inter/400.css";
 @import "@fontsource/inter/500.css";
 @import "@fontsource/inter/600.css";
@@ -9,41 +9,48 @@
 @import "@fontsource/noto-naskh-arabic/600.css";
 
 @theme {
-  --color-ivory: #FAF6F0;
-  --color-cream: #F3ECE3;
-  --color-sand: #E7DED3;
-  --color-charcoal: #2B2B2B;
-  --color-ink: #1F1F1F;
-  --color-muted: #6B6560;
-  --color-rose: #B07A7A;
-  --color-rose-soft: #E7C9C3;
-  --color-rose-deep: #8E5A5A;
-  --color-gold: #C9A46A;
-  --color-ok: #3F6B4F;
+  /* 21mine design system - cool canvas, deep navy ink, copper accent */
+  --color-ivory: #F5F6F8;      /* page canvas */
+  --color-surface: #FFFFFF;
+  --color-cream: #EDF0F4;      /* panels */
+  --color-sand: #D8DDE5;       /* lines / borders */
+  --color-charcoal: #0F1523;   /* primary ink + dark buttons */
+  --color-ink: #1E293B;        /* body text */
+  --color-navy: #141B2D;       /* dark sections */
+  --color-muted: #5B616F;
+  --color-faint: #8A909C;
+  --color-rose: #B86633;       /* copper accent */
+  --color-rose-deep: #98502F;  /* accent hover / CTA deep */
+  --color-rose-soft: #F4E6DB;  /* accent tint */
+  --color-gold: #B86633;       /* rating stars */
+  --color-ok: #147B3F;
+  --color-ok-bg: #DCFCE7;
   --color-warn: #8A5A12;
-  --color-danger: #A23B3B;
+  --color-danger: #DC2626;
   --font-sans: "Inter", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Cormorant Garamond", "Noto Naskh Arabic", Georgia, serif;
+  --font-display: "Montserrat", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
 }
 
 html { -webkit-text-size-adjust: 100%; }
-body { @apply bg-ivory text-charcoal font-sans antialiased; }
+body { @apply bg-ivory text-ink font-sans antialiased; font-size: 15px; }
 html[dir="rtl"] body { font-family: "Noto Naskh Arabic", "Inter", system-ui, sans-serif; }
 
 :focus-visible { outline: 2px solid var(--color-rose-deep); outline-offset: 2px; border-radius: 4px; }
 
 @utility container-x { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
-@utility h-display { @apply font-display font-normal tracking-tight; }
+@utility h-display { @apply font-display font-semibold tracking-[-0.02em] text-charcoal; }
 @utility btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50; }
-@utility btn-primary { @apply btn bg-charcoal text-ivory hover:bg-ink; }
-@utility btn-secondary { @apply btn border border-charcoal/80 bg-transparent text-charcoal hover:bg-charcoal hover:text-ivory; }
+@utility btn-primary { @apply btn bg-charcoal text-white hover:bg-navy; }
+@utility btn-secondary { @apply btn border border-charcoal/70 bg-white text-charcoal hover:border-charcoal hover:bg-charcoal hover:text-white; }
 @utility btn-rose { @apply btn bg-rose text-white hover:bg-rose-deep; }
 @utility btn-ghost { @apply btn px-3 py-2 hover:bg-cream; }
+@utility btn-icon { @apply relative grid h-11 w-11 place-items-center rounded-full border border-sand bg-white text-charcoal shadow-sm transition hover:border-charcoal/40; }
+@utility section-title { @apply font-display text-[2rem] font-semibold leading-[1.08] tracking-[-0.025em] text-charcoal sm:text-[2.6rem]; }
 @utility btn-danger { @apply btn bg-danger text-white hover:opacity-90; }
 @utility btn-sm { @apply px-4 py-2 text-xs; }
-@utility card { @apply rounded-2xl border border-sand bg-white/70; }
+@utility card { @apply rounded-2xl border border-sand bg-white; }
 @utility label { @apply mb-1.5 block text-sm font-medium text-charcoal; }
-@utility input { @apply block w-full rounded-xl border border-sand bg-white px-4 py-3 text-base text-charcoal placeholder:text-muted/70 focus:border-rose-deep focus:outline-none focus:ring-2 focus:ring-rose-soft sm:text-sm; }
+@utility input { @apply block w-full rounded-lg border border-sand bg-white px-3.5 py-3 text-base text-charcoal placeholder:text-faint focus:border-charcoal focus:outline-none focus:ring-2 focus:ring-charcoal/10 sm:text-sm; }
 .input[aria-invalid="true"] { @apply border-danger ring-1 ring-danger/30; }
 @utility field-error { @apply mt-1.5 text-sm text-danger; }
 @utility hint { @apply mt-1.5 text-xs text-muted; }
@@ -62,3 +69,15 @@ html[dir="rtl"] body { font-family: "Noto Naskh Arabic", "Inter", system-ui, san
 
 .skip-link { position: absolute; inset-inline-start: 1rem; top: -4rem; z-index: 100; }
 .skip-link:focus { top: 1rem; }
+
+/* Floating-label inputs (checkout) */
+.float-field { position: relative; }
+.float-field > .input { padding-top: 1.35rem; padding-bottom: 0.45rem; }
+.float-field > label { position: absolute; inset-inline-start: 0.9rem; top: 0.85rem; font-size: 0.875rem; color: var(--color-faint); pointer-events: none; transition: all .15s ease; }
+.float-field > .input:focus + label, .float-field > .input:not(:placeholder-shown) + label, .float-field > select.input + label { top: 0.35rem; font-size: 0.7rem; color: var(--color-muted); }
+.no-scrollbar { scrollbar-width: none; } .no-scrollbar::-webkit-scrollbar { display: none; }
+@keyframes slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pop-in { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+.animate-slide-in { animation: slide-in .25s ease-out; } html[dir="rtl"] .animate-slide-in { animation-name: fade-in; }
+.animate-fade-in { animation: fade-in .2s ease-out; } .animate-pop-in { animation: pop-in .2s ease-out; }

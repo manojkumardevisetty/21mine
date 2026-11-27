@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" role="img" aria-label="21mine">
-  <g fill="none" stroke="#B07A7A" stroke-width="2" stroke-linejoin="round" transform="translate(2 6)">
-    <path d="M6 18 L13 9 H29 L36 18 L21 46 Z"/>
-    <path d="M6 18 H36 M13 9 L17 18 L21 46 L25 18 L29 9"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 64" role="img" aria-label="21mine">
+  <g fill="none" stroke="#B86633" stroke-width="2.6" stroke-linejoin="round" transform="translate(2 8)">
+    <path d="M4 14 L11 5 H31 L38 14 L21 42 Z"/><path d="M4 14 H38 M11 5 L16 14 L21 42 L26 14 L31 5"/>
   </g>
-  <text x="50" y="45" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-size="44" fill="#2B2B2B" letter-spacing="1">21<tspan fill="#B07A7A" font-style="italic">mine</tspan></text>
+  <text x="52" y="38" font-family="Montserrat, Arial, sans-serif" font-weight="700" font-size="30" fill="#0F1523" letter-spacing="-0.5">21<tspan fill="#B86633">mine</tspan></text>
+  <text x="53" y="54" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="9.5" fill="#8A909C" letter-spacing="2.6">DUBAI</text>
 </svg>

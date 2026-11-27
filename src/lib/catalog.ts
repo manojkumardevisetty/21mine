@@ -6,6 +6,7 @@ const { products: p, variants: v, categories: c, productImages: img, reviews: r 
 const minPrice = sql<number>`(select min(${v.priceFils}) from ${v} where ${v.productId} = ${p.id} and ${v.isActive})`;
 const maxCompare = sql<number | null>`(select max(${v.compareAtFils}) from ${v} where ${v.productId} = ${p.id} and ${v.isActive})`;
 const totalStock = sql<number>`coalesce((select sum(${v.stock}) from ${v} where ${v.productId} = ${p.id} and ${v.isActive}), 0)::int`;
+const sizes = sql<string>`(select string_agg(${v.name}, ' / ' order by ${v.sortOrder}) from ${v} where ${v.productId} = ${p.id} and ${v.isActive})`;
 const variantCount = sql<number>`(select count(*) from ${v} where ${v.productId} = ${p.id} and ${v.isActive})::int`;
 const firstImage = sql<string | null>`(select ${img.url} from ${img} where ${img.productId} = ${p.id} order by ${img.sortOrder} limit 1)`;
 const secondImage = sql<string | null>`(select ${img.url} from ${img} where ${img.productId} = ${p.id} order by ${img.sortOrder} offset 1 limit 1)`;
@@ -41,7 +42,7 @@ export async function listProducts(f: ProductFilters = {}) {
   return db.select({
     id: p.id, slug: p.slug, name: p.name, shortDescription: p.shortDescription, kind: p.kind,
     isFeatured: p.isFeatured, categorySlug: c.slug, categoryName: c.name,
-    minPriceFils: minPrice, compareAtFils: maxCompare, stock: totalStock, variantCount,
+    minPriceFils: minPrice, compareAtFils: maxCompare, stock: totalStock, variantCount, sizes,
     image: firstImage, hoverImage: secondImage, rating: avgRating, reviewCount,
   }).from(p).innerJoin(c, eq(p.categoryId, c.id)).where(and(...where)).orderBy(...order);
 }

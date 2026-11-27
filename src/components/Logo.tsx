@@ -1,14 +1,15 @@
 export function Logo({ className = "", light = false }: { className?: string; light?: boolean }) {
   return (
     <span className={`inline-flex items-center gap-2 ${className}`} aria-label="21mine">
-      <svg viewBox="0 0 42 52" className="h-7 w-6 shrink-0" aria-hidden="true">
-        <g fill="none" stroke="#B07A7A" strokeWidth="2.4" strokeLinejoin="round">
-          <path d="M4 16 L11 7 H31 L38 16 L21 47 Z" />
-          <path d="M4 16 H38 M11 7 L16 16 L21 47 L26 16 L31 7" />
+      <svg viewBox="0 0 42 46" className="h-8 w-8 shrink-0" aria-hidden="true">
+        <g fill="none" stroke="#B86633" strokeWidth="2.6" strokeLinejoin="round">
+          <path d="M4 14 L11 5 H31 L38 14 L21 42 Z" />
+          <path d="M4 14 H38 M11 5 L16 14 L21 42 L26 14 L31 5" />
         </g>
       </svg>
-      <span className={`font-display text-[1.9rem] leading-none tracking-wide ${light ? "text-ivory" : "text-charcoal"}`} dir="ltr">
-        21<em className="text-rose not-italic font-display italic">mine</em>
+      <span className="flex flex-col leading-none" dir="ltr">
+        <span className={`font-display text-[1.35rem] font-bold tracking-[-0.02em] ${light ? "text-white" : "text-charcoal"}`}>21<span className="text-rose">mine</span></span>
+        <span className={`mt-0.5 text-[0.62rem] font-medium uppercase tracking-[0.22em] ${light ? "text-white/60" : "text-faint"}`}>Dubai</span>
       </span>
     </span>
   );

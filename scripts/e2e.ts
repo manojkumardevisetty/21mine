@@ -79,8 +79,9 @@ async function login(p: Page, email: string, pass: string, next = "/account") {
 async function addToBag(p: Page, slug: string, variantLabel?: string) {
   await go(p, `/product/${slug}`);
   if (variantLabel) await clickText(p, "label", variantLabel);
-  await clickText(p, "button", "Add to bag");
-  await waitText(p, "Added to your bag");
+  await clickText(p, "button", "Add to cart");
+  await waitText(p, "Added to your cart");
+  await p.keyboard.press("Escape");
 }
 async function fillUAEAddress(p: Page, emirate = "Dubai") {
   await fill(p, "#f-fullName", "Layla Test");
@@ -93,15 +94,15 @@ async function fillUAEAddress(p: Page, emirate = "Dubai") {
 async function placeOrder(p: Page, opts: { doubleClick?: boolean } = {}) {
   await p.click('input[name="acceptTerms"]');
   await new Promise((r) => setTimeout(r, 800)); // let the live quote settle
-  await p.waitForFunction(() => [...document.querySelectorAll("button[type=submit]")].some((b) => /^(Place order|Pay)/.test((b as HTMLElement).innerText) && !(b as HTMLButtonElement).disabled));
+  await p.waitForFunction(() => [...document.querySelectorAll("button[type=submit]")].some((b) => /^Continue to secure payment/.test((b as HTMLElement).innerText) && !(b as HTMLButtonElement).disabled));
   let btn = null;
-  for (const b of await p.$$("button[type=submit]")) if (/^(Place order|Pay)/.test(await b.evaluate((e) => (e as HTMLElement).innerText))) btn = b;
+  for (const b of await p.$$("button[type=submit]")) if (/^Continue to secure payment/.test(await b.evaluate((e) => (e as HTMLElement).innerText))) btn = b;
   if (!btn) throw new Error("Place order button not found");
   if (opts.doubleClick) { await btn.click(); await btn.click().catch(() => {}); await btn.click().catch(() => {}); }
   else await btn.click();
   await waitPath(p, "/pay/simulated/");
 }
-async function simulate(p: Page, label: "Pay now" | "Simulate declined payment" | "Cancel payment") {
+async function simulate(p: Page, label: "Pay " | "Simulate declined payment" | "Cancel payment") {
   await clickText(p, "button", label);
   await waitPath(p, "/orders/");
   await idle(p);
@@ -127,7 +128,7 @@ async function main() {
     await clickText(p, "button", "OK, got it");
     await idle(p);
     const t = await text(p);
-    assert(t.includes("Customer favourites") && t.includes("XENTERPRISES DIGITAL SERVICES - FZCO"), "home content");
+    assert(/Customer\s+favourites/.test(t) && t.includes("XENTERPRISES DIGITAL SERVICES - FZCO"), "home content");
     for (const s of ["terms", "privacy", "cookies", "shipping", "returns", "contact"]) {
       const r = await p.goto(`${BASE}/policies/${s}`); assert(r?.status() === 200, `policy ${s}`);
       assert(!(await text(p)).includes("{{"), `unfilled token on ${s}`);
@@ -146,9 +147,11 @@ async function main() {
 
   await step("Arabic / RTL switch", async () => {
     await go(p, "/");
-    await p.select("#sel-locale-m", "ar");
+    await p.click('button[aria-controls="mobile-nav"]');
+    await p.click('#mobile-nav button[data-locale="ar"]');
     await p.waitForFunction(() => document.documentElement.dir === "rtl");
-    await p.select("#sel-locale-m", "en");
+    await p.click('button[aria-controls="mobile-nav"]');
+    await p.click('#mobile-nav button[data-locale="en"]');
     await p.waitForFunction(() => document.documentElement.dir === "ltr");
   });
 
@@ -201,11 +204,11 @@ async function main() {
     await p.click('button[aria-label="Decrease quantity of Nude Almond Gloss Press-On Nails"]');
     await p.waitForSelector('span[aria-label="Quantity 1"]');
     await go(p, "/checkout");
-    await clickText(p, "button", "Place order"); // missing terms + fields
+    await clickText(p, "button", "Continue to secure payment"); // missing terms + fields
     await waitText(p, "Please check the highlighted fields");
     await fillUAEAddress(p, "Dubai");
     await p.waitForFunction(() => document.body.innerText.includes("Free"));
-    const shown = await p.evaluate(() => [...document.querySelectorAll("dt")].find((d) => d.textContent === "Total to pay")?.nextElementSibling?.textContent ?? "");
+    const shown = await p.evaluate(() => [...document.querySelectorAll("dt")].find((d) => d.textContent === "Total")?.nextElementSibling?.textContent ?? "");
     assert(/448\.00/.test(shown), `total shown before payment: ${shown}`); // 379 + 69, free delivery
     const before = (await db.query("select count(*)::int n from orders o join users u on u.id=o.user_id where u.email=$1", [A.email])).rows[0].n;
     await placeOrder(p, { doubleClick: true });
@@ -214,7 +217,7 @@ async function main() {
     const t = await text(p);
     assert(t.includes("TEST PAYMENT") && t.includes("no money will be collected"), "test-payment notice on payment step");
     assert((await p.$$('input[type="password"], input[autocomplete="cc-number"]')).length === 0, "no card fields");
-    await simulate(p, "Pay now");
+    await simulate(p, "Pay ");
     await waitText(p, "your order is confirmed");
     orderNumberA = decodeURIComponent(path(p).split("/").pop()!);
     const r = await db.query("select id, total_minor, invoice_number from orders where number=$1", [orderNumberA]);
@@ -250,7 +253,7 @@ async function main() {
     assert((await db.query("select stock from variants where sku='PN-MILKPRL-S'")).rows[0].stock === before - 1, "stock reserved after decline");
     await clickText(p, "button", "Try payment again");
     await waitPath(p, "/pay/simulated/");
-    await simulate(p, "Pay now");
+    await simulate(p, "Pay ");
     await waitText(p, "your order is confirmed");
   });
 
@@ -297,7 +300,8 @@ async function main() {
   let guestUrl = "";
   await step("Guest checkout in USD to the UK with signed order link", async () => {
     await go(pg, "/");
-    await pg.select("#sel-currency", "USD");
+    await pg.click('button[aria-label^="Currency:"]');
+    await pg.click('button[data-currency="USD"]');
     await pg.waitForFunction(() => document.body.innerText.includes("$"));
     await addToBag(pg, "classic-french-tip-square-press-on-nails", "L - Large");
     await go(pg, "/checkout");
@@ -309,7 +313,7 @@ async function main() {
     await pg.click("#f-city");
     await pg.waitForFunction(() => /\$25\.87/.test(document.body.innerText), { timeout: 15000 }); // AED 95 delivery
     await placeOrder(pg);
-    await simulate(pg, "Pay now");
+    await simulate(pg, "Pay ");
     await waitText(pg, "your order is confirmed");
     guestUrl = pg.url();
     const t = await text(pg);

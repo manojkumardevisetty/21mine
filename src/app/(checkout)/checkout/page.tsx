@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { randomUUID } from "node:crypto";
 import { asc, desc, eq } from "drizzle-orm";
@@ -34,19 +33,16 @@ export default async function CheckoutPage() {
   const q = await quoteCart({ lines: cart.lines.map((l) => ({ variantId: l.variantId, unitPriceFils: l.unitPriceFils, quantity: l.quantity })), currencyCode: currency.code });
 
   return (
-    <div className="container-x py-10">
-      <nav aria-label="Breadcrumb" className="text-xs text-muted"><Link href="/cart" className="hover:underline">Bag</Link> / <span aria-current="page">Checkout</span></nav>
-      <h1 className="h-display mt-3 text-4xl">Checkout</h1>
-      <div className="mt-8">
-        <CheckoutForm
-          idempotencyKey={randomUUID()} currency={currency.code} email={user?.email ?? ""} signedIn={!!user}
-          countries={countries} emirates={UAE_EMIRATES}
-          addresses={addresses.map((a) => ({ ...a }))}
-          methods={methods} simulated={provider.simulated}
-          lines={cart.lines.map((l, i) => ({ name: l.productName, variant: l.variantName, qty: l.quantity, total: formatMinor(q.lines[i].lineMinor, q.currency, q.exponent), image: l.image }))}
-          initialQuote={initialQuote}
-        />
-      </div>
-    </div>
+    <>
+      <h1 className="sr-only">Checkout</h1>
+      <CheckoutForm
+        idempotencyKey={randomUUID()} currency={currency.code} email={user?.email ?? ""} userName={user?.name ?? null} signedIn={!!user}
+        countries={countries} emirates={UAE_EMIRATES}
+        addresses={addresses.map((a) => ({ ...a }))}
+        methods={methods} testMode={provider.simulated}
+        lines={cart.lines.map((l, i) => ({ name: l.productName, variant: l.variantName, qty: l.quantity, total: formatMinor(q.lines[i].lineMinor, q.currency, q.exponent), image: l.image }))}
+        initialQuote={initialQuote}
+      />
+    </>
   );
 }

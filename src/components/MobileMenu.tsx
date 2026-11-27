@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { Logo } from "./Logo";
 import { usePathname } from "next/navigation";
 
 export function MobileMenu({ groups, labels, prefs }: { groups: { title: string; links: { href: string; label: string }[] }[]; labels: { menu: string; close: string }; prefs?: React.ReactNode }) {
@@ -19,12 +21,12 @@ export function MobileMenu({ groups, labels, prefs }: { groups: { title: string;
       <button type="button" className="btn-icon" aria-expanded={open} aria-controls="mobile-nav" onClick={() => setOpen(true)} aria-label={labels.menu}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
       </button>
-      {open && (
+      {open && createPortal(
         <div className="fixed inset-0 z-[60] animate-fade-in" role="dialog" aria-modal="true" aria-label={labels.menu}>
           <div className="absolute inset-0 bg-charcoal/40" onClick={() => setOpen(false)} />
           <nav id="mobile-nav" className="absolute inset-y-0 start-0 flex w-[86%] max-w-sm flex-col overflow-y-auto bg-white p-5 shadow-xl">
-            <button type="button" className="btn-icon self-end" onClick={() => setOpen(false)} autoFocus aria-label={labels.close}>✕</button>
-            {prefs && <div className="mt-2 rounded-2xl border border-sand p-4">{prefs}</div>}
+            <div className="flex items-center justify-between"><Logo /><button type="button" className="btn-icon h-10 w-10 shrink-0" onClick={() => setOpen(false)} autoFocus aria-label={labels.close}>✕</button></div>
+            {prefs && <div className="mt-5 rounded-2xl border border-sand p-4">{prefs}</div>}
             {groups.map((g) => (
               <div key={g.title} className="mt-4">
                 <p className="mb-1 px-2 text-xs font-semibold uppercase tracking-wider text-faint">{g.title}</p>
@@ -32,7 +34,8 @@ export function MobileMenu({ groups, labels, prefs }: { groups: { title: string;
               </div>
             ))}
           </nav>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
